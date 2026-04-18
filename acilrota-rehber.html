@@ -1,0 +1,2212 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AcilRota — Proje Rehberi</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0e1a;
+  --surface: #111827;
+  --surface2: #1a2235;
+  --border: #1e2d45;
+  --accent: #00d4ff;
+  --accent2: #ff6b35;
+  --accent3: #4ade80;
+  --accent4: #facc15;
+  --text: #e2e8f0;
+  --text-muted: #64748b;
+  --text-dim: #94a3b8;
+  --danger: #ef4444;
+  --node-a: #6366f1;
+  --node-b: #3b82f6;
+  --node-c: #10b981;
+  --node-d: #f59e0b;
+  --node-e: #ef4444;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── GRID BACKGROUND ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── SIDEBAR NAV ── */
+.sidebar {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: 260px;
+  background: rgba(10,14,26,0.95);
+  border-right: 1px solid var(--border);
+  padding: 32px 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-logo {
+  padding: 0 24px 28px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.sidebar-logo .logo-badge {
+  background: linear-gradient(135deg, var(--accent), #0080ff);
+  color: #000;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.sidebar-logo h2 {
+  font-family: 'Space Mono', monospace;
+  font-size: 18px;
+  color: var(--accent);
+}
+.sidebar-logo p {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.nav-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding: 0 24px 8px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 24px;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+}
+.nav-link:hover, .nav-link.active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  background: rgba(0,212,255,0.05);
+}
+.nav-link .nav-icon {
+  width: 18px;
+  text-align: center;
+  font-size: 14px;
+}
+.nav-link .nav-num {
+  margin-left: auto;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.progress-bar-wrap {
+  margin-top: auto;
+  padding: 20px 24px 0;
+  border-top: 1px solid var(--border);
+}
+.progress-bar-wrap p { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
+.progress-track {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent3));
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+/* ── MAIN CONTENT ── */
+.main {
+  margin-left: 260px;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 80px 64px 64px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-tag::before {
+  content: '';
+  width: 24px; height: 2px;
+  background: var(--accent);
+}
+.hero h1 {
+  font-family: 'Space Mono', monospace;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.hero h1 span { color: var(--accent); }
+.hero .desc {
+  max-width: 600px;
+  color: var(--text-dim);
+  font-size: 17px;
+  margin-bottom: 36px;
+  line-height: 1.8;
+}
+.hero-pills {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.pill {
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid;
+}
+.pill-blue { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.08); }
+.pill-orange { border-color: var(--accent2); color: var(--accent2); background: rgba(255,107,53,0.08); }
+.pill-green { border-color: var(--accent3); color: var(--accent3); background: rgba(74,222,128,0.08); }
+.pill-yellow { border-color: var(--accent4); color: var(--accent4); background: rgba(250,204,21,0.08); }
+
+/* ── SECTION ── */
+.section {
+  padding: 64px;
+  border-bottom: 1px solid var(--border);
+}
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+.section-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  background: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.2);
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-top: 4px;
+  white-space: nowrap;
+}
+.section h2 {
+  font-family: 'Space Mono', monospace;
+  font-size: 28px;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.section h2 span { color: var(--accent); }
+.section .subtitle {
+  color: var(--text-dim);
+  font-size: 15px;
+}
+
+/* ── CARDS ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.card-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+.card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.card p {
+  font-size: 13.5px;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* ── INFO BOXES ── */
+.info-box {
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin: 20px 0;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.info-box.tip { background: rgba(74,222,128,0.07); border: 1px solid rgba(74,222,128,0.2); }
+.info-box.warn { background: rgba(250,204,21,0.07); border: 1px solid rgba(250,204,21,0.2); }
+.info-box.danger { background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.2); }
+.info-box.info { background: rgba(0,212,255,0.07); border: 1px solid rgba(0,212,255,0.2); }
+.info-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.info-box strong { display: block; margin-bottom: 4px; color: #fff; }
+
+/* ── CODE BLOCKS ── */
+.code-wrap {
+  background: #050810;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+.code-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+.code-dots { display: flex; gap: 6px; }
+.code-dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-r { background: #ef4444; }
+.dot-y { background: #facc15; }
+.dot-g { background: #4ade80; }
+.copy-btn {
+  background: rgba(0,212,255,0.1);
+  border: 1px solid rgba(0,212,255,0.2);
+  color: var(--accent);
+  font-size: 11px;
+  font-family: 'Space Mono', monospace;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.copy-btn:hover { background: rgba(0,212,255,0.2); }
+pre {
+  padding: 20px;
+  overflow-x: auto;
+  font-family: 'Fira Code', monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #cdd6f4;
+}
+.kw { color: #cba6f7; }
+.fn { color: #89b4fa; }
+.str { color: #a6e3a1; }
+.num { color: #fab387; }
+.cm { color: #585b70; font-style: italic; }
+.tp { color: #f38ba8; }
+.var { color: #89dceb; }
+
+/* ── STEPS ── */
+.steps {
+  counter-reset: step;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.step-item {
+  display: flex;
+  gap: 0;
+  position: relative;
+}
+.step-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 44px;
+  flex-shrink: 0;
+}
+.step-num {
+  width: 36px; height: 36px;
+  background: var(--surface2);
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s;
+}
+.step-item.done .step-num {
+  background: var(--accent3);
+  border-color: var(--accent3);
+  color: #000;
+}
+.step-line {
+  width: 2px;
+  flex: 1;
+  background: var(--border);
+  margin: 4px 0;
+}
+.step-item:last-child .step-line { display: none; }
+.step-content {
+  padding: 0 0 36px 20px;
+  flex: 1;
+  padding-top: 6px;
+}
+.step-content h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.step-content p {
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+/* ── INTERACTIVE GRAPH ── */
+#graph-section { background: var(--surface); }
+
+.graph-container {
+  background: #050810;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+}
+.graph-svg-wrap {
+  position: relative;
+  width: 100%;
+}
+#graphSvg {
+  width: 100%;
+  height: 320px;
+  display: block;
+}
+
+.graph-controls {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.graph-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+  border: 1px solid;
+}
+.graph-btn.primary {
+  background: rgba(0,212,255,0.15);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.graph-btn.primary:hover { background: rgba(0,212,255,0.25); }
+.graph-btn.danger-btn {
+  background: rgba(239,68,68,0.12);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.graph-btn.danger-btn:hover { background: rgba(239,68,68,0.22); }
+.graph-btn.success {
+  background: rgba(74,222,128,0.12);
+  border-color: var(--accent3);
+  color: var(--accent3);
+}
+
+.bfs-log {
+  background: #050810;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+  font-family: 'Fira Code', monospace;
+  font-size: 12.5px;
+  color: var(--accent3);
+  min-height: 80px;
+  line-height: 1.8;
+}
+
+/* ── CLOSED EDGE SELECTOR ── */
+.edge-toggles {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.edge-toggle {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Space Mono', monospace;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text-dim);
+  transition: all 0.2s;
+}
+.edge-toggle.closed {
+  background: rgba(239,68,68,0.15);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* ── MATERIAL TABLE ── */
+.mat-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-top: 20px;
+}
+.mat-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+.mat-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid rgba(30,45,69,0.5);
+  color: var(--text-dim);
+  font-size: 13.5px;
+}
+.mat-table tr:hover td { background: rgba(255,255,255,0.02); }
+.mat-table td:first-child { color: #fff; font-weight: 600; }
+.mat-table td .price { color: var(--accent4); font-family: 'Space Mono', monospace; font-size: 12px; }
+.qty-badge {
+  display: inline-block;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 7px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+}
+
+/* ── WIRING DIAGRAM ── */
+.wiring-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 20px;
+}
+.wiring-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.wiring-card-header {
+  padding: 14px 20px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 700;
+}
+.wiring-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.wiring-table td {
+  padding: 10px 20px;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(30,45,69,0.4);
+}
+.wiring-table tr:last-child td { border: none; }
+.wiring-table td:first-child { color: var(--text-dim); }
+.wiring-table td:last-child { font-family: 'Space Mono', monospace; color: var(--accent3); font-size: 12px; }
+.arrow-cell { text-align: center; color: var(--text-muted); font-size: 18px; }
+
+/* ── PHASE TIMELINE ── */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 24px;
+}
+.phase-item {
+  display: flex;
+  gap: 20px;
+  cursor: pointer;
+}
+.phase-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 36px;
+  flex-shrink: 0;
+}
+.phase-dot {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--bg);
+  margin-top: 20px;
+  transition: all 0.3s;
+}
+.phase-item:hover .phase-dot,
+.phase-item.open .phase-dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(0,212,255,0.4);
+}
+.phase-vline {
+  width: 2px;
+  flex: 1;
+  background: var(--border);
+  margin: 4px 0;
+  margin-left: 6px;
+}
+.phase-item:last-child .phase-vline { display: none; }
+.phase-content {
+  flex: 1;
+  padding-bottom: 24px;
+}
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px 10px 0 0;
+  transition: border-color 0.2s;
+}
+.phase-item.open .phase-header {
+  border-color: var(--accent);
+  border-bottom-color: transparent;
+  border-radius: 10px 10px 0 0;
+}
+.phase-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.ph1 { background: rgba(99,102,241,0.2); color: #a5b4fc; }
+.ph2 { background: rgba(59,130,246,0.2); color: #93c5fd; }
+.ph3 { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+.ph4 { background: rgba(245,158,11,0.2); color: #fcd34d; }
+.phase-title { font-size: 15px; font-weight: 700; color: #fff; flex: 1; }
+.phase-weeks { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text-muted); }
+.phase-expand { color: var(--text-muted); font-size: 18px; transition: transform 0.3s; }
+.phase-item.open .phase-expand { transform: rotate(180deg); color: var(--accent); }
+.phase-body {
+  display: none;
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  padding: 20px;
+}
+.phase-item.open .phase-body { display: block; }
+.task-list { list-style: none; }
+.task-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(30,45,69,0.4);
+  font-size: 13.5px;
+  color: var(--text-dim);
+}
+.task-list li:last-child { border: none; }
+.task-check {
+  width: 18px; height: 18px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.task-check.checked {
+  background: var(--accent3);
+  border-color: var(--accent3);
+  color: #000;
+  font-size: 10px;
+}
+.task-text { flex: 1; }
+.task-owner { font-size: 10px; background: var(--surface2); border: 1px solid var(--border); padding: 1px 6px; border-radius: 3px; color: var(--text-muted); white-space: nowrap; }
+
+/* ── NODE DIAGRAM ── */
+.node-diagram {
+  background: #050810;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  margin-top: 20px;
+  text-align: center;
+}
+.node-diagram svg { max-width: 100%; }
+
+/* ── TROUBLESHOOT ── */
+.trouble-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+.trouble-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.trouble-q {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+.trouble-q::before {
+  content: '⚠';
+  font-size: 16px;
+  color: var(--accent4);
+}
+.trouble-q .expand-icon { margin-left: auto; color: var(--text-muted); transition: transform 0.3s; }
+.trouble-item.open .expand-icon { transform: rotate(180deg); }
+.trouble-a {
+  display: none;
+  padding: 0 20px 18px 52px;
+  color: var(--text-dim);
+  font-size: 13.5px;
+  line-height: 1.75;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+.trouble-item.open .trouble-a { display: block; }
+.trouble-item.open { border-color: var(--accent4); }
+
+/* ── CHECKLIST ── */
+.checklist {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 20px;
+}
+.checklist h3 {
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(30,45,69,0.4);
+  cursor: pointer;
+}
+.check-item:last-child { border: none; }
+.check-box {
+  width: 20px; height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+.check-item.done .check-box {
+  background: var(--accent3);
+  border-color: var(--accent3);
+  color: #000;
+  font-size: 12px;
+}
+.check-item span {
+  font-size: 14px;
+  color: var(--text-dim);
+  flex: 1;
+}
+.check-item.done span { text-decoration: line-through; color: var(--text-muted); }
+
+/* ── NODE MATRIX VISUAL ── */
+.matrix-wrap {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+.matrix-table {
+  border-collapse: collapse;
+  font-family: 'Fira Code', monospace;
+  font-size: 14px;
+  margin: 0 auto;
+}
+.matrix-table th, .matrix-table td {
+  width: 48px; height: 48px;
+  text-align: center;
+  border: 1px solid var(--border);
+  font-weight: 700;
+}
+.matrix-table th { color: var(--text-muted); background: var(--surface2); font-size: 12px; }
+.matrix-table td { color: var(--text-dim); transition: all 0.3s; }
+.matrix-table td.one { color: var(--accent); background: rgba(0,212,255,0.08); }
+.matrix-table td.zero { color: var(--border); }
+.matrix-table td.closed-cell { color: var(--danger); background: rgba(239,68,68,0.08); }
+.matrix-table th:first-child { background: transparent; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .section { padding: 40px 24px; }
+  .hero { padding: 48px 24px; }
+  .hero h1 { font-size: 30px; }
+  .wiring-grid { grid-template-columns: 1fr; }
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+.section { animation: fadeUp 0.5s ease both; }
+
+/* ── TOPBAR (mobile) ── */
+.topbar {
+  display: none;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  background: rgba(10,14,26,0.95);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 20px;
+  backdrop-filter: blur(12px);
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  color: var(--accent);
+}
+@media (max-width: 900px) { .topbar { display: block; } }
+
+.esp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,107,53,0.1);
+  border: 1px solid rgba(255,107,53,0.3);
+  color: var(--accent2);
+  font-size: 11px;
+  font-family: 'Space Mono', monospace;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+h4 { font-size: 15px; font-weight: 700; color: #fff; margin: 24px 0 8px; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">TEKNOFEST 2026</div>
+    <h2>AcilRota</h2>
+    <p>Dinamik Tahliye Yönlendirme</p>
+  </div>
+  <div class="nav-section-title" style="margin-top:8px">Modüller</div>
+  <a class="nav-link active" href="#baslangic"><span class="nav-icon">🚀</span> Başlangıç <span class="nav-num">01</span></a>
+  <a class="nav-link" href="#sistem"><span class="nav-icon">🏗️</span> Sistem Mimarisi <span class="nav-num">02</span></a>
+  <a class="nav-link" href="#malzeme"><span class="nav-icon">🛒</span> Malzeme Listesi <span class="nav-num">03</span></a>
+  <a class="nav-link" href="#esp32"><span class="nav-icon">⚡</span> ESP32 Kurulum <span class="nav-num">04</span></a>
+  <a class="nav-link" href="#dotmatrix"><span class="nav-icon">💡</span> Dot Matrix Ekran <span class="nav-num">05</span></a>
+  <a class="nav-link" href="#butonlar"><span class="nav-icon">🔘</span> Buton Mantığı <span class="nav-num">06</span></a>
+  <a class="nav-link" href="#bfs"><span class="nav-icon">🧠</span> BFS Algoritması <span class="nav-num">07</span></a>
+  <a class="nav-link" href="#espnow"><span class="nav-icon">📡</span> ESP-NOW Ağı <span class="nav-num">08</span></a>
+  <a class="nav-link" href="#tam-sistem"><span class="nav-icon">🔧</span> Tam Entegrasyon <span class="nav-num">09</span></a>
+  <a class="nav-link" href="#test"><span class="nav-icon">✅</span> Test Senaryoları <span class="nav-num">10</span></a>
+  <a class="nav-link" href="#sorun"><span class="nav-icon">🐛</span> Sorun Giderme <span class="nav-num">11</span></a>
+  <div class="progress-bar-wrap">
+    <p>İlerleme: <span id="progressText">0%</span></p>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+</nav>
+
+<!-- TOPBAR (mobile) -->
+<div class="topbar">⚡ AcilRota — Proje Rehberi</div>
+
+<main class="main">
+
+<!-- ── HERO ── -->
+<section class="hero" id="baslangic">
+  <div class="hero-tag">Adım Adım Proje Rehberi</div>
+  <h1>AcilRota<br><span>Dinamik Tahliye</span><br>Yönlendirme Sistemi</h1>
+  <p class="desc">Bu rehber, sıfırdan, çalışan bir prototip oluşturmak için ihtiyaç duyduğun birçok şeyi kapsamaktadır. Her bölümü sırasıyla oku ve uygulamalı çalış.</p>
+  <div class="hero-pills">
+    <span class="pill pill-blue">ESP32 + ESP-NOW</span>
+    <span class="pill pill-orange">8×8 Dot Matrix + MT3608</span>
+    <span class="pill pill-green">BFS Algoritması</span>
+    <span class="pill pill-yellow">Mesh Ağ</span>
+  </div>
+</section>
+
+<!-- ── 1. SİSTEM MİMARİSİ ── -->
+<section class="section" id="sistem">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <div>
+      <h2>Sistem <span>Mimarisi</span></h2>
+      <p class="subtitle">Projeye başlamadan önce büyük resmi anlamak önemlidir; genel mimari ve yapıyı iyi özümsemek gerekir.</p>
+    </div>
+  </div>
+
+  <p style="color:var(--text-dim);font-size:15px;margin-bottom:24px;">
+    Projemiz bir <strong style="color:#fff">graf (ağ) yapısı</strong> üzerine kuruludur. Bina içindeki her koridor kavşağı bir düğüm (node), iki düğümü birleştiren her koridor ise bir kenar (edge) olarak modellenir. Bir koridor kapandığında sistem, BFS algoritmasıyla alternatif rotayı hesaplar ve tüm düğümleri kablosuz olarak günceller.
+  </p>
+
+  <!-- SVG Graf Diyagramı -->
+  <div class="node-diagram">
+    <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" style="max-width:640px">
+      
+      <!--
+        Doğru topoloji (yönsüz graf):
+        A(100,110) — B(270,50) — D(440,50) — E(560,110)
+                  \— C(270,170) —/           /
+                        \————————————————————/
+        Kenarlar: A-B, A-C, B-C, B-D, C-D, C-E, D-E   (7 kenar)
+      -->
+
+      <!-- Edges -->
+      <line x1="100" y1="110" x2="270" y2="50"  stroke="#1e2d45" stroke-width="2"/>
+      <line x1="100" y1="110" x2="270" y2="170" stroke="#1e2d45" stroke-width="2"/>
+      <line x1="270" y1="50"  x2="270" y2="170" stroke="#1e2d45" stroke-width="2"/>
+      <line x1="270" y1="50"  x2="440" y2="50"  stroke="#1e2d45" stroke-width="2"/>
+      <line x1="270" y1="170" x2="440" y2="50"  stroke="#1e2d45" stroke-width="2"/>
+      <line x1="270" y1="170" x2="560" y2="110" stroke="#1e2d45" stroke-width="2"/>
+      <line x1="440" y1="50"  x2="560" y2="110" stroke="#1e2d45" stroke-width="2"/>
+
+      <!-- Edge labels -->
+      <text x="172" y="68"  fill="#374151" font-size="10" font-family="monospace" text-anchor="middle">A-B</text>
+      <text x="172" y="152" fill="#374151" font-size="10" font-family="monospace" text-anchor="middle">A-C</text>
+      <text x="258" y="118" fill="#374151" font-size="10" font-family="monospace" text-anchor="middle">B-C</text>
+      <text x="355" y="38"  fill="#374151" font-size="10" font-family="monospace" text-anchor="middle">B-D</text>
+      <text x="370" y="128" fill="#374151" font-size="10" font-family="monospace" text-anchor="middle">C-D</text>
+      <text x="425" y="158" fill="#374151" font-size="10" font-family="monospace" text-anchor="middle">C-E</text>
+      <text x="510" y="68"  fill="#374151" font-size="10" font-family="monospace" text-anchor="middle">D-E</text>
+
+      <!-- Nodes -->
+      <circle cx="100" cy="110" r="28" fill="#1a1a2e" stroke="#6366f1" stroke-width="2.5"/>
+      <text x="100" y="115" fill="#a5b4fc" font-size="16" font-family="monospace" font-weight="bold" text-anchor="middle">A</text>
+      <text x="100" y="150" fill="#6366f1" font-size="10" font-family="monospace" text-anchor="middle">BAŞLANGIÇ</text>
+
+      <circle cx="270" cy="50"  r="28" fill="#1a1a2e" stroke="#3b82f6" stroke-width="2.5"/>
+      <text x="270" y="55"  fill="#93c5fd" font-size="16" font-family="monospace" font-weight="bold" text-anchor="middle">B</text>
+
+      <circle cx="270" cy="170" r="28" fill="#1a1a2e" stroke="#10b981" stroke-width="2.5"/>
+      <text x="270" y="175" fill="#6ee7b7" font-size="16" font-family="monospace" font-weight="bold" text-anchor="middle">C</text>
+
+      <circle cx="440" cy="50"  r="28" fill="#1a1a2e" stroke="#f59e0b" stroke-width="2.5"/>
+      <text x="440" y="55"  fill="#fcd34d" font-size="16" font-family="monospace" font-weight="bold" text-anchor="middle">D</text>
+
+      <circle cx="560" cy="110" r="28" fill="#1a1a2e" stroke="#ef4444" stroke-width="2.5"/>
+      <text x="560" y="115" fill="#fca5a5" font-size="16" font-family="monospace" font-weight="bold" text-anchor="middle">E</text>
+      <text x="560" y="150" fill="#ef4444" font-size="10" font-family="monospace" text-anchor="middle">ÇIKIŞ</text>
+    </svg>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:8px">5 düğüm, 7 kenar — Her düğümde bir ESP32 + 8×8 Dot Matrix + koridora özel buton(lar)</p>
+  </div>
+
+  <div class="card-grid" style="margin-top:28px">
+    <div class="card">
+      <div class="card-icon">🔲</div>
+      <h3>Düğüm (Node) = ESP32 Cihazı</h3>
+      <p>Her kavşak noktasına ESP32'li bir cihaz yerleştirilir. Bu yapıda ayrıca dot matrix ekran ve o düğümden çıkan koridorların sayısı kadar buton bulunur.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📡</div>
+      <h3>Mesh Ağ = ESP-NOW</h3>
+      <p>Düğümler internet veya router olmadan birbirleriyle kablosuz iletişim kurar. Bir butona basıldığında "koridor X kapandı" mesajı tüm ağa yayılır.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧮</div>
+      <h3>Rota = BFS Algoritması</h3>
+      <p>Her ESP32, BFS algoritmasıyla mevcut açık koridorlardan en kısa yolu hesaplar. Sonucu dot matrix ekranda yön oku olarak gösterir.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔋</div>
+      <h3>Elektriksiz Çalışma</h3>
+      <p>Her düğüm Li-ion pil + MT3608 step-up regülatör ile beslenir. MT3608 çıkışı 5V'a ayarlanır; hem ESP32 hem MAX7219 bu hattan beslenir. Elektrik kesilse bile sistem çalışmaya devam eder.</p>
+    </div>
+  </div>
+
+  <div class="info-box info" style="margin-top:28px">
+    <span class="info-icon">💡</span>
+    <div>
+      <strong>Buton Tasarım Mantığı (Güncelleme)</strong>
+        Her düğümde, o düğümden çıkan koridor sayısı kadar buton bulunur. Örneğin A düğümü B ve C koridorlarına bağlıysa A düğümündeki ESP32'ye 2 buton bağlıdır. Bu sayede hangi buton basıldıysa, tam olarak hangi koridorun kapandığı bilinir. <br><br>
+
+        🎯 Koridorlara sensörler (duman, alev vb) monte edilerek sistemin tamamen otonom çalışması sağlanabilir.    </div>
+  </div>
+</section>
+
+<!-- ── 2. MALZEME LİSTESİ ── -->
+<section class="section" id="malzeme">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <div>
+      <h2>Malzeme <span>Listesi</span></h2>
+      <p class="subtitle">Prototip için gereken tüm bileşenler</p>
+    </div>
+  </div>
+  <table class="mat-table">
+    <thead>
+      <tr>
+        <th>Bileşen</th>
+        <th>Adet</th>
+        <th>Kullanım Yeri</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ESP32 DevKit (38-pin)</td>
+        <td><span class="qty-badge">5</span></td>
+        <td>Her düğüm için 1 adet — işlemci + WiFi + ESP-NOW</td>
+      </tr>
+      <tr>
+        <td>8×8 Dot Matrix (MAX7219, SPI)</td>
+        <td><span class="qty-badge">5</span></td>
+        <td>Yön oku göstermek için — OLED yerine - kullanılacak</td>
+      </tr>
+      <tr>
+        <td>Buton (6×6 mm, anlık)</td>
+        <td><span class="qty-badge">12</span></td>
+        <td>Her düğümde, bağlı koridor sayısı kadar buton</td>
+      </tr>
+      <tr>
+        <td>RGB Şerit LED (her koridor için)</td>
+        <td><span class="qty-badge">7</span></td>
+        <td>Görsel uyarı — koridor açık/kapalı göstergesi</td>
+      </tr>
+      <tr>
+        <td>Bağlantı kabloları</td>
+        <td><span class="qty-badge">-</span></td>
+        <td>Devre kurulumları için</td>
+      </tr>
+      <tr>
+        <td>Li-ion Pil 4.2V 2000mAh 20A</td>
+        <td><span class="qty-badge">5</span></td>
+        <td>Her düğüm için ana güç kaynağı — elektrik kesintisinde çalışmayı sağlar</td>
+      </tr>
+      <tr>
+        <td>MT3608 Step-Up Voltaj Regülatörü (çıkış 5V'a ayarlanır)</td>
+        <td><span class="qty-badge">5</span></td>
+        <td>Pil voltajını sabit 5V'a yükseltir — ESP32 Vin pini <strong style="color:#fff">ve</strong> MAX7219 VCC aynı hattan beslenir. Trimpot ile 5V'a ayarla. <strong style="color:var(--accent2)">Zorunlu</strong></td>
+      </tr>
+      <tr>
+        <td>Çeşitli yapı malzemeleri</td>
+        <td><span class="qty-badge">-</span></td>
+        <td>Prototip / maket için</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="info-box warn" style="margin-top:20px">
+    <span class="info-icon">⚡</span>
+    <div>
+      <strong>MT3608 Step-Up Neden Gerekli?</strong>
+      Li-ion pil tam doluyken 4.2V, boşalırken ~3.0V'a iner. ESP32'nin <code style="color:var(--accent)">Vin</code> pini 5V beklediğinde stabil çalışır; MAX7219'un minimum çalışma voltajı ise 4.0V'tur. Pil boşaldıkça her ikisi de kararsız çalışmaya başlar. MT3608 step-up regülatör, pil voltajını <strong style="color:#fff">her koşulda sabit 5V'ta</strong> tutar. Trimpot ile çıkışı tam 5V'a ayarlamayı unutma.
+    </div>
+  </div>
+
+  <div class="info-box info" style="margin-top:12px">
+    <span class="info-icon">🔋</span>
+    <div>
+      <strong>Güç Devresi Bağlantı Şeması</strong><br><br>
+      <code style="color:var(--accent4)">Li-ion Pil</code>
+      &nbsp;→&nbsp;
+      <code style="color:var(--accent2)">MT3608 (→ 5V)</code>
+      &nbsp;→&nbsp;
+      <strong style="color:#fff">ESP32 Vin</strong> &nbsp;<em style="color:var(--text-muted)">ve</em>&nbsp; <strong style="color:#fff">MAX7219 VCC</strong>
+      <br><br>
+      Tek regülatör, iki bileşeni besler. GND hatları ortak.
+    </div>
+  </div>
+
+  <div class="info-box warn" style="margin-top:12px">
+    <span class="info-icon">⚠️</span>
+    <div>
+      <strong>Sürücü Uyarısı</strong>
+      ESP32'yi bilgisayara bağladığında tanınmazsa CP2102 sürücüsünü yüklemelisin. ESP32 kartının üzerindeki küçük chip'in adına bak (genellikle CP2102 yazar). Google'da "CP2102 driver download" ara.
+    </div>
+  </div>
+</section>
+
+<!-- ── 3. ESP32 KURULUM ── -->
+<section class="section" id="esp32">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <div>
+      <h2>ESP32 <span>Kurulum</span></h2>
+      <p class="subtitle">Arduino IDE ile ESP32'yi ilk kez kullanmak</p>
+    </div>
+  </div>
+
+  <div class="info-box info">
+    <span class="info-icon">ℹ️</span>
+    <div>
+      <strong>Arduino'yu biliyorsun, ESP32 yeni!</strong>
+      ESP32 Arduino Uno'ya çok benzer — aynı IDE, aynı mantık. Tek fark: Board Manager'a ESP32 paketini eklemen gerekiyor.
+    </div>
+  </div>
+
+  <div class="steps" style="margin-top:28px">
+    <div class="step-item">
+      <div class="step-left"><div class="step-num">1</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <h3>Arduino IDE Ayarı</h3>
+        <p>Arduino IDE'yi aç → <strong>File → Preferences</strong> → "Additional boards manager URLs" kutusuna şunu yapıştır:</p>
+        <div class="code-wrap" style="margin-top:12px">
+          <div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-title">URL</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div>
+          <pre>https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json</pre>
+        </div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-left"><div class="step-num">2</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <h3>Board Paketini Yükle</h3>
+        <p><strong>Tools → Board → Boards Manager</strong> → "esp32" ara → <strong>Espressif Systems</strong> paketini yükle. Ardından <strong>Tools → Board → ESP32 Arduino → "ESP32 Dev Module"</strong> seç.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-left"><div class="step-num">3</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <h3>İlk Test: Blink</h3>
+        <p>Aşağıdaki kodu yükle. Dahili LED (GPIO 2) yanıp sönüyorsa ESP32 hazır demektir!</p>
+        <div class="code-wrap" style="margin-top:12px">
+          <div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-title">blink_test.ino</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div>
+          <pre><span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="fn">pinMode</span>(<span class="num">2</span>, OUTPUT);  <span class="cm">// GPIO2 = dahili LED</span>
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="fn">digitalWrite</span>(<span class="num">2</span>, HIGH);
+  <span class="fn">delay</span>(<span class="num">500</span>);
+  <span class="fn">digitalWrite</span>(<span class="num">2</span>, LOW);
+  <span class="fn">delay</span>(<span class="num">500</span>);
+}</pre>
+        </div>
+        <div class="info-box tip" style="margin-top:12px">
+          <span class="info-icon">💡</span>
+          <div><strong>Upload Sorunu mu?</strong> Kodu yüklerken "Connecting..." takılı kalırsa, Upload başlarken BOOT butonuna (ESP32 üzerindeki) basılı tut, upload başlayınca bırak.</div>
+        </div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-left"><div class="step-num">4</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <h3>ESP32 vs Arduino Uno Karşılaştırması</h3>
+        <table class="mat-table" style="margin-top:8px">
+          <thead><tr><th>Özellik</th><th>Arduino Uno</th><th>ESP32</th></tr></thead>
+          <tbody>
+            <tr><td>İşlemci Hızı</td><td>16 MHz</td><td>240 MHz (15× hızlı!)</td></tr>
+            <tr><td>Wi-Fi / Bluetooth</td><td>Yok</td><td>Dahili var</td></tr>
+            <tr><td>RAM</td><td>2 KB</td><td>520 KB</td></tr>
+            <tr><td>GPIO Sayısı</td><td>14</td><td>30+</td></tr>
+            <tr><td>Programlama</td><td>Arduino IDE</td><td>Arduino IDE (aynı!)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 4. DOT MATRIX ── -->
+<section class="section" id="dotmatrix">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <div>
+      <h2>8×8 Dot Matrix <span>Ekran</span></h2>
+      <p class="subtitle">MAX7219 sürücülü modüle bağlantı ve yön oku gösterimi</p>
+    </div>
+  </div>
+
+  <p style="color:var(--text-dim);font-size:14.5px;margin-bottom:20px;max-width:700px">
+    Projede OLED yerine <strong style="color:#fff">8×8 LED Dot Matrix (MAX7219)</strong> kullanıyoruz. Bu ekran, 64 LED'den oluşan bir matris üzerinde harf, rakam veya şekil gösterebilir. SPI protokolüyle haberleşir ve sadece 5 kablo gerektirir.
+  </p>
+
+  <div class="wiring-grid">
+    <div class="wiring-card">
+      <div class="wiring-card-header">🔌 Bağlantı Şeması — MAX7219 → ESP32</div>
+      <table class="wiring-table">
+        <tr><td>VCC</td><td class="arrow-cell">→</td><td>5V — MT3608 çıkışı (ESP32 Vin ile ortak hat)</td></tr>
+        <tr><td>GND</td><td class="arrow-cell">→</td><td>GND</td></tr>
+        <tr><td>DIN (MOSI)</td><td class="arrow-cell">→</td><td>GPIO 23</td></tr>
+        <tr><td>CLK (SCK)</td><td class="arrow-cell">→</td><td>GPIO 18</td></tr>
+        <tr><td>CS (SS)</td><td class="arrow-cell">→</td><td>GPIO 5</td></tr>
+      </table>
+    </div>
+    <div style="background:rgba(0,212,255,0.05);border-top:1px solid var(--border);padding:12px 20px;font-size:12.5px;color:var(--text-dim);line-height:1.8">
+      <strong style="color:var(--accent3)">⚡ Güç bağlantısı (ortak hat):</strong><br>
+      Li-ion → MT3608 (5V) → ESP32 <code style="color:var(--accent)">Vin</code> pini &nbsp;<strong style="color:var(--text-muted)">ve</strong>&nbsp; MAX7219 <code style="color:var(--accent)">VCC</code><br>
+      GND → ESP32 GND &nbsp;<strong style="color:var(--text-muted)">ve</strong>&nbsp; MAX7219 GND (ortak)
+    </div>
+    <div class="wiring-card">
+      <div class="wiring-card-header">📦 Kütüphane Kurulumu</div>
+      <div style="padding:16px 20px;font-size:13.5px;color:var(--text-dim);line-height:1.8">
+        Arduino IDE'de:<br>
+        <strong style="color:#fff">Sketch → Include Library → Manage Libraries</strong><br>
+        → <code style="color:var(--accent);font-size:12px">"MD_MAX72XX"</code> ara → yükle<br>
+        → <code style="color:var(--accent);font-size:12px">"MD_Parola"</code> ara → yükle<br><br>
+        <span style="color:var(--accent3);font-size:12px">✓ Her iki kütüphane de birlikte kullanılır</span><br><br>
+        <strong style="color:var(--accent4)">⚡ Donanım notu:</strong><br>
+        <span style="color:var(--text-muted);font-size:12px">MT3608 trimpotunu multimetreyle tam <strong style="color:#fff">5.0V</strong>'a ayarla. Sonra ESP32 Vin'e ve MAX7219 VCC'ye bağla.</span>
+      </div>
+    </div>
+  </div>
+
+  <h4>Yön Oku Gösterimi — Temel Kod</h4>
+  <div class="code-wrap">
+    <div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-title">dotmatrix_yon.ino</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div>
+    <pre><span class="cm">// MAX7219 ile 8x8 dot matrix — 8 yön oku + uyarı deseni</span>
+<span class="kw">#include</span> <span class="str">&lt;MD_MAX72xx.h&gt;</span>
+<span class="kw">#include</span> <span class="str">&lt;SPI.h&gt;</span>
+
+<span class="kw">#define</span> <span class="var">DATA_PIN</span>  <span class="num">23</span>
+<span class="kw">#define</span> <span class="var">CLK_PIN</span>   <span class="num">18</span>
+<span class="kw">#define</span> <span class="var">CS_PIN</span>     <span class="num">5</span>
+
+MD_MAX72XX <span class="var">mx</span>(MD_MAX72XX::FC16_HW, <span class="var">DATA_PIN</span>, <span class="var">CLK_PIN</span>, <span class="var">CS_PIN</span>, <span class="num">1</span>);
+
+<span class="cm">// ── Düz oklar ──────────────────────────────────────────────</span>
+<span class="cm">// ▶  Sağ</span>
+<span class="kw">const uint8_t</span> <span class="var">OK_SAG</span>[<span class="num">8</span>] = {
+  <span class="num">0b00001000</span>,  <span class="cm">// . . . . X . . .</span>
+  <span class="num">0b00000100</span>,  <span class="cm">// . . . . . X . .</span>
+  <span class="num">0b11111110</span>,  <span class="cm">// X X X X X X X .</span>
+  <span class="num">0b11111111</span>,  <span class="cm">// X X X X X X X X</span>
+  <span class="num">0b11111110</span>,  <span class="cm">// X X X X X X X .</span>
+  <span class="num">0b00000100</span>,  <span class="cm">// . . . . . X . .</span>
+  <span class="num">0b00001000</span>,  <span class="cm">// . . . . X . . .</span>
+  <span class="num">0b00000000</span>
+};
+<span class="cm">// ◀  Sol</span>
+<span class="kw">const uint8_t</span> <span class="var">OK_SOL</span>[<span class="num">8</span>] = {
+  <span class="num">0b00010000</span>,  <span class="cm">// . . . X . . . .</span>
+  <span class="num">0b00100000</span>,  <span class="cm">// . . X . . . . .</span>
+  <span class="num">0b01111111</span>,  <span class="cm">// . X X X X X X X</span>
+  <span class="num">0b11111111</span>,  <span class="cm">// X X X X X X X X</span>
+  <span class="num">0b01111111</span>,  <span class="cm">// . X X X X X X X</span>
+  <span class="num">0b00100000</span>,  <span class="cm">// . . X . . . . .</span>
+  <span class="num">0b00010000</span>,  <span class="cm">// . . . X . . . .</span>
+  <span class="num">0b00000000</span>
+};
+<span class="cm">// ▲  Yukarı</span>
+<span class="kw">const uint8_t</span> <span class="var">OK_YUKARI</span>[<span class="num">8</span>] = {
+  <span class="num">0b00011000</span>,  <span class="cm">// . . . X X . . .</span>
+  <span class="num">0b00111100</span>,  <span class="cm">// . . X X X X . .</span>
+  <span class="num">0b01111110</span>,  <span class="cm">// . X X X X X X .</span>
+  <span class="num">0b11111111</span>,  <span class="cm">// X X X X X X X X</span>
+  <span class="num">0b00011000</span>,  <span class="cm">// . . . X X . . .</span>
+  <span class="num">0b00011000</span>,  <span class="cm">// . . . X X . . .</span>
+  <span class="num">0b00011000</span>,  <span class="cm">// . . . X X . . .</span>
+  <span class="num">0b00011000</span>   <span class="cm">// . . . X X . . .</span>
+};
+<span class="cm">// ▼  Aşağı</span>
+<span class="kw">const uint8_t</span> <span class="var">OK_ASAGI</span>[<span class="num">8</span>] = {
+  <span class="num">0b00011000</span>,
+  <span class="num">0b00011000</span>,
+  <span class="num">0b00011000</span>,
+  <span class="num">0b00011000</span>,
+  <span class="num">0b11111111</span>,
+  <span class="num">0b01111110</span>,
+  <span class="num">0b00111100</span>,
+  <span class="num">0b00011000</span>
+};
+
+<span class="cm">// ── Çapraz oklar ───────────────────────────────────────────</span>
+<span class="cm">// ↗  Sağ-Yukarı</span>
+<span class="kw">const uint8_t</span> <span class="var">OK_SAG_YUKARI</span>[<span class="num">8</span>] = {
+  <span class="num">0b00111111</span>,  <span class="cm">// . . X X X X X X  ← ok ucu (sağ-üst)</span>
+  <span class="num">0b00000111</span>,  <span class="cm">// . . . . . X X X</span>
+  <span class="num">0b00001011</span>,  <span class="cm">// . . . . X . X X</span>
+  <span class="num">0b00010001</span>,  <span class="cm">// . . . X . . . X</span>
+  <span class="num">0b00100000</span>,  <span class="cm">// . . X . . . . .</span>
+  <span class="num">0b01000000</span>,  <span class="cm">// . X . . . . . .</span>
+  <span class="num">0b10000000</span>,  <span class="cm">// X . . . . . . .</span>
+  <span class="num">0b00000000</span>
+};
+<span class="cm">// ↖  Sol-Yukarı</span>
+<span class="kw">const uint8_t</span> <span class="var">OK_SOL_YUKARI</span>[<span class="num">8</span>] = {
+  <span class="num">0b11111100</span>,  <span class="cm">// X X X X X X . .  ← ok ucu (sol-üst)</span>
+  <span class="num">0b11100000</span>,  <span class="cm">// X X X . . . . .</span>
+  <span class="num">0b11010000</span>,  <span class="cm">// X X . X . . . .</span>
+  <span class="num">0b10001000</span>,  <span class="cm">// X . . . X . . .</span>
+  <span class="num">0b00000100</span>,  <span class="cm">// . . . . . X . .</span>
+  <span class="num">0b00000010</span>,  <span class="cm">// . . . . . . X .</span>
+  <span class="num">0b00000001</span>,  <span class="cm">// . . . . . . . X</span>
+  <span class="num">0b00000000</span>
+};
+<span class="cm">// ↘  Sağ-Aşağı</span>
+<span class="kw">const uint8_t</span> <span class="var">OK_SAG_ASAGI</span>[<span class="num">8</span>] = {
+  <span class="num">0b00000000</span>,
+  <span class="num">0b10000000</span>,  <span class="cm">// X . . . . . . .</span>
+  <span class="num">0b01000000</span>,  <span class="cm">// . X . . . . . .</span>
+  <span class="num">0b00100000</span>,  <span class="cm">// . . X . . . . .</span>
+  <span class="num">0b00010001</span>,  <span class="cm">// . . . X . . . X</span>
+  <span class="num">0b00001011</span>,  <span class="cm">// . . . . X . X X</span>
+  <span class="num">0b00000111</span>,  <span class="cm">// . . . . . X X X</span>
+  <span class="num">0b00111111</span>   <span class="cm">// . . X X X X X X  ← ok ucu (sağ-alt)</span>
+};
+<span class="cm">// ↙  Sol-Aşağı</span>
+<span class="kw">const uint8_t</span> <span class="var">OK_SOL_ASAGI</span>[<span class="num">8</span>] = {
+  <span class="num">0b00000000</span>,
+  <span class="num">0b00000001</span>,  <span class="cm">// . . . . . . . X</span>
+  <span class="num">0b00000010</span>,  <span class="cm">// . . . . . . X .</span>
+  <span class="num">0b00000100</span>,  <span class="cm">// . . . . . X . .</span>
+  <span class="num">0b10001000</span>,  <span class="cm">// X . . . X . . .</span>
+  <span class="num">0b11010000</span>,  <span class="cm">// X X . X . . . .</span>
+  <span class="num">0b11100000</span>,  <span class="cm">// X X X . . . . .</span>
+  <span class="num">0b11111100</span>   <span class="cm">// X X X X X X . .  ← ok ucu (sol-alt)</span>
+};
+
+<span class="cm">// ── Özel desenler ──────────────────────────────────────────</span>
+<span class="cm">// ✕  Yol yok / Uyarı</span>
+<span class="kw">const uint8_t</span> <span class="var">UYARI_X</span>[<span class="num">8</span>] = {
+  <span class="num">0b11000011</span>,
+  <span class="num">0b01100110</span>,
+  <span class="num">0b00111100</span>,
+  <span class="num">0b00011000</span>,
+  <span class="num">0b00011000</span>,
+  <span class="num">0b00111100</span>,
+  <span class="num">0b01100110</span>,
+  <span class="num">0b11000011</span>
+};
+
+<span class="kw">void</span> <span class="fn">yonGoster</span>(<span class="kw">const uint8_t</span> *<span class="var">desen</span>) {
+  <span class="var">mx</span>.<span class="fn">clear</span>();
+  <span class="kw">for</span> (<span class="kw">int</span> <span class="var">satir</span> = <span class="num">0</span>; <span class="var">satir</span> &lt; <span class="num">8</span>; <span class="var">satir</span>++) {
+    <span class="var">mx</span>.<span class="fn">setRow</span>(<span class="num">0</span>, <span class="var">satir</span>, <span class="var">desen</span>[<span class="var">satir</span>]);
+  }
+}
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="var">mx</span>.<span class="fn">begin</span>();
+  <span class="var">mx</span>.<span class="fn">control</span>(MD_MAX72XX::INTENSITY, <span class="num">5</span>);  <span class="cm">// Parlaklık 0–15</span>
+  <span class="fn">yonGoster</span>(<span class="var">OK_SAG</span>);  <span class="cm">// Test: sağ oku göster</span>
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="cm">// Tam sistem: AcilRota_Dugum.ino dosyasındaki rotayiGuncelle() çağrılır</span>
+}</pre>
+  </div>
+
+  <div class="info-box tip">
+    <span class="info-icon">💡</span>
+    <div>
+      <strong>Tüm Yön Okları — Hazır Desenler</strong>
+      Kodda 8 yön için hazır desen tanımlıdır: <code style="color:var(--accent)">OK_SAG</code> ▶ &nbsp;<code style="color:var(--accent)">OK_SOL</code> ◀ &nbsp;<code style="color:var(--accent)">OK_YUKARI</code> ▲ &nbsp;<code style="color:var(--accent)">OK_ASAGI</code> ▼ &nbsp;ve çapraz <code style="color:var(--accent)">OK_SAG_YUKARI</code> ↗ &nbsp;<code style="color:var(--accent)">OK_SOL_YUKARI</code> ↖ &nbsp;<code style="color:var(--accent)">OK_SAG_ASAGI</code> ↘ &nbsp;<code style="color:var(--accent)">OK_SOL_ASAGI</code> ↙. Kendi deseni tasarlamak istersen: 8×8 kağıt grid çiz, yanmasını istediğin kareleri işaretle, her satırı soldan sağa binary'ye çevir (<code style="color:var(--accent)">0b</code> ile başlat). Yanan = 1, sönen = 0.
+    </div>
+  </div>
+</section>
+
+<!-- ── 5. BUTON MANTIĞI ── -->
+<section class="section" id="butonlar">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <div>
+      <h2>Buton <span>Mantığı</span></h2>
+      <p class="subtitle">Her koridor için ayrı buton — hangisi basıldı, o kapanır</p>
+    </div>
+  </div>
+
+  <p style="color:var(--text-dim);font-size:14.5px;margin-bottom:20px;max-width:700px">
+    Projenin en kritik tasarım kararı: her düğümde, o düğümden çıkan koridor sayısı kadar buton var. Bu sayede sistem, hangi koridorun kapandığını otomatik olarak biliyor.
+  </p>
+
+  <div class="card-grid" style="margin-bottom:28px">
+    <div class="card" style="border-color:rgba(99,102,241,0.4)">
+      <div class="card-icon">🔵</div>
+      <h3>Düğüm A (BAŞLANGIÇ)</h3>
+      <p>B ve C koridorlarına bağlı → <strong style="color:var(--accent)">2 buton</strong><br>Buton 1: A–B kapandı<br>Buton 2: A–C kapandı</p>
+    </div>
+    <div class="card" style="border-color:rgba(59,130,246,0.4)">
+      <div class="card-icon">🔵</div>
+      <h3>Düğüm B</h3>
+      <p>A, C ve D koridorlarına bağlı → <strong style="color:var(--accent)">3 buton</strong><br>Buton 1: B–A kapandı<br>Buton 2: B–C kapandı<br>Buton 3: B–D kapandı</p>
+    </div>
+    <div class="card" style="border-color:rgba(16,185,129,0.4)">
+      <div class="card-icon">🟢</div>
+      <h3>Düğüm C</h3>
+      <p>A, B, D ve E'ye bağlı → <strong style="color:var(--accent)">4 buton</strong><br>Buton 1: C–A kapandı<br>Buton 2: C–B kapandı<br>Buton 3: C–D kapandı<br>Buton 4: C–E kapandı</p>
+    </div>
+    <div class="card" style="border-color:rgba(245,158,11,0.4)">
+      <div class="card-icon">🟡</div>
+      <h3>Düğüm D</h3>
+      <p>B, C ve E koridorlarına bağlı → <strong style="color:var(--accent)">3 buton</strong><br>Buton 1: D–B kapandı<br>Buton 2: D–C kapandı<br>Buton 3: D–E kapandı</p>
+    </div>
+    <div class="card" style="border-color:rgba(239,68,68,0.4)">
+      <div class="card-icon">🔴</div>
+      <h3>Düğüm E (ÇIKIŞ)</h3>
+      <p>Çıkış düğümüne buton gerekmez — sistem buraya ulaşmaya çalışır.</p>
+    </div>
+  </div>
+
+  <h4>Buton Devresi ve Kodu</h4>
+
+  <div class="info-box info">
+    <span class="info-icon">ℹ️</span>
+    <div>
+      <strong>Pull-Down Direnç Zorunlu!</strong>
+      Butonu direkt GPIO'ya bağlarsan pin "havada" kalır ve yanlış okuma yapar. Her buton için 10kΩ direnç kullan veya kodda <code style="color:var(--accent)">INPUT_PULLUP</code> kullan.
+    </div>
+  </div>
+
+  <div class="code-wrap" style="margin-top:16px">
+    <div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-title">buton_test.ino — Düğüm A örneği (2 buton)</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div>
+    <pre><span class="cm">// DÜĞÜM A — B koridoru butonu GPIO 12, C koridoru butonu GPIO 14</span>
+<span class="cm">// INPUT_PULLUP: basılınca LOW okur, bırakılınca HIGH</span>
+
+<span class="kw">const int</span> <span class="var">BUTON_AB</span> = <span class="num">12</span>;  <span class="cm">// A–B koridoru butonu</span>
+<span class="kw">const int</span> <span class="var">BUTON_AC</span> = <span class="num">14</span>;  <span class="cm">// A–C koridoru butonu</span>
+
+<span class="kw">bool</span> <span class="var">ab_kapali</span> = <span class="kw">false</span>;
+<span class="kw">bool</span> <span class="var">ac_kapali</span> = <span class="kw">false</span>;
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="fn">Serial</span>.<span class="fn">begin</span>(<span class="num">115200</span>);
+  <span class="fn">pinMode</span>(<span class="var">BUTON_AB</span>, INPUT_PULLUP);
+  <span class="fn">pinMode</span>(<span class="var">BUTON_AC</span>, INPUT_PULLUP);
+}
+
+<span class="kw">void</span> <span class="fn">butonlariKontrolEt</span>() {
+  <span class="cm">// Butona basılınca LOW gelir (PULLUP mantığı)</span>
+  <span class="kw">if</span> (<span class="fn">digitalRead</span>(<span class="var">BUTON_AB</span>) == LOW) {
+    <span class="fn">delay</span>(<span class="num">50</span>);  <span class="cm">// debounce — titreşimi önle</span>
+    <span class="kw">if</span> (<span class="fn">digitalRead</span>(<span class="var">BUTON_AB</span>) == LOW) {
+      <span class="var">ab_kapali</span> = !<span class="var">ab_kapali</span>;  <span class="cm">// toggle: kapat/aç</span>
+      <span class="fn">Serial</span>.<span class="fn">println</span>(<span class="var">ab_kapali</span> ? <span class="str">"A-B KAPALI"</span> : <span class="str">"A-B ACIK"</span>);
+      <span class="cm">// → ESP-NOW ile diğer düğümlere bildir (Bkz. Bölüm 08)</span>
+      <span class="kw">while</span>(<span class="fn">digitalRead</span>(<span class="var">BUTON_AB</span>) == LOW); <span class="cm">// bırakılana kadar bekle</span>
+    }
+  }
+
+  <span class="kw">if</span> (<span class="fn">digitalRead</span>(<span class="var">BUTON_AC</span>) == LOW) {
+    <span class="fn">delay</span>(<span class="num">50</span>);
+    <span class="kw">if</span> (<span class="fn">digitalRead</span>(<span class="var">BUTON_AC</span>) == LOW) {
+      <span class="var">ac_kapali</span> = !<span class="var">ac_kapali</span>;
+      <span class="fn">Serial</span>.<span class="fn">println</span>(<span class="var">ac_kapali</span> ? <span class="str">"A-C KAPALI"</span> : <span class="str">"A-C ACIK"</span>);
+      <span class="kw">while</span>(<span class="fn">digitalRead</span>(<span class="var">BUTON_AC</span>) == LOW);
+    }
+  }
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="fn">butonlariKontrolEt</span>();
+}</pre>
+  </div>
+
+  <div class="info-box tip" style="margin-top:16px">
+    <span class="info-icon">💡</span>
+    <div>
+      <strong>Debounce Nedir?</strong>
+      Fiziksel bir butona bastığında mekanik titreşim yüzünden birkaç milisaniye içinde ON-OFF-ON sinyali üretebilir. <code style="color:var(--accent)">delay(50)</code> ile beklersek bu titreşim geçer ve gerçek basışı okuruz. Buna "debounce" denir.
+    </div>
+  </div>
+</section>
+
+<!-- ── 6. BFS ALGORİTMASI ── -->
+<section class="section" id="bfs">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <div>
+      <h2>BFS <span>Algoritması</span></h2>
+      <p class="subtitle">En kısa güvenli rotayı bulmak — önce kağıtta, sonra kodda</p>
+    </div>
+  </div>
+
+  <p style="color:var(--text-dim);font-size:14.5px;margin-bottom:24px;max-width:700px">
+    BFS (Breadth-First Search / Genişlik Öncelikli Arama), bir grafta en kısa yolu bulan temel bir algoritmadır. "Dalgalar halinde yayılan" bir arama gibi düşün: başlangıç noktasından eş zamanlı olarak tüm komşu yönlere gider.
+  </p>
+
+  <!-- İnteraktif BFS Simülatörü -->
+  <div class="graph-container">
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px">
+      🎮 <strong style="color:#fff">İnteraktif BFS Simülatörü</strong> — Koridorları kapat, rotanın nasıl değiştiğini gör
+    </p>
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px">Kapatmak istediğin koridoru seç:</p>
+    <div class="edge-toggles" id="edgeToggles"></div>
+    <svg id="graphSvg" viewBox="0 0 700 300"></svg>
+    <div class="graph-controls">
+      <button class="graph-btn primary" onclick="runBFS()">▶ BFS Hesapla</button>
+      <button class="graph-btn success" onclick="resetGraph()">↺ Sıfırla</button>
+    </div>
+    <div class="bfs-log" id="bfsLog">BFS hazır. Koridor kapat veya "BFS Hesapla" düğmesine bas...</div>
+  </div>
+
+  <h4>Graf Komşuluk Matrisi</h4>
+  <p style="color:var(--text-dim);font-size:14px;margin-bottom:12px">
+    Graf yapısı kodda bir 2 boyutlu dizi ile temsil edilir. Satır ve sütun sırası: A=0, B=1, C=2, D=3, E=4
+  </p>
+  <div class="matrix-wrap">
+    <table class="matrix-table" id="matrixTable">
+      <thead>
+        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+      </thead>
+      <tbody>
+        <tr><th>A</th><td class="zero" data-r="0" data-c="0">0</td><td class="one" data-r="0" data-c="1">1</td><td class="one" data-r="0" data-c="2">1</td><td class="zero" data-r="0" data-c="3">0</td><td class="zero" data-r="0" data-c="4">0</td></tr>
+        <tr><th>B</th><td class="one" data-r="1" data-c="0">1</td><td class="zero" data-r="1" data-c="1">0</td><td class="one" data-r="1" data-c="2">1</td><td class="one" data-r="1" data-c="3">1</td><td class="zero" data-r="1" data-c="4">0</td></tr>
+        <tr><th>C</th><td class="one" data-r="2" data-c="0">1</td><td class="one" data-r="2" data-c="1">1</td><td class="zero" data-r="2" data-c="2">0</td><td class="one" data-r="2" data-c="3">1</td><td class="one" data-r="2" data-c="4">1</td></tr>
+        <tr><th>D</th><td class="zero" data-r="3" data-c="0">0</td><td class="one" data-r="3" data-c="1">1</td><td class="one" data-r="3" data-c="2">1</td><td class="zero" data-r="3" data-c="3">0</td><td class="one" data-r="3" data-c="4">1</td></tr>
+        <tr><th>E</th><td class="zero" data-r="4" data-c="0">0</td><td class="zero" data-r="4" data-c="1">0</td><td class="one" data-r="4" data-c="2">1</td><td class="one" data-r="4" data-c="3">1</td><td class="zero" data-r="4" data-c="4">0</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4 style="margin-top:32px">BFS Kodu — ESP32 Üzerinde</h4>
+  <div class="code-wrap">
+    <div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-title">bfs_algoritma.ino</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div>
+    <pre><span class="cm">// Graf komşuluk matrisi (5 düğüm: A=0, B=1, C=2, D=3, E=4)</span>
+<span class="kw">int</span> <span class="var">graf</span>[<span class="num">5</span>][<span class="num">5</span>] = {
+  <span class="cm">// A  B  C  D  E</span>
+  {  <span class="num">0</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">0</span>, <span class="num">0</span> },  <span class="cm">// A</span>
+  {  <span class="num">1</span>, <span class="num">0</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">0</span> },  <span class="cm">// B</span>
+  {  <span class="num">1</span>, <span class="num">1</span>, <span class="num">0</span>, <span class="num">1</span>, <span class="num">1</span> },  <span class="cm">// C</span>
+  {  <span class="num">0</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">0</span>, <span class="num">1</span> },  <span class="cm">// D</span>
+  {  <span class="num">0</span>, <span class="num">0</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="num">0</span> }   <span class="cm">// E (çıkış)</span>
+};
+
+<span class="kw">bool</span> <span class="var">kapali</span>[<span class="num">5</span>][<span class="num">5</span>] = { <span class="kw">false</span> };  <span class="cm">// Tüm koridorlar başta açık</span>
+
+<span class="cm">// BFS ile en kısa yolu bul</span>
+<span class="cm">// baslangic: hangi düğümde (0-4), hedef: çıkış düğümü (genellikle 4)</span>
+<span class="cm">// rota[]: bulunan yol, rotaUzunluk: kaç düğüm var</span>
+<span class="kw">bool</span> <span class="fn">bfs</span>(<span class="kw">int</span> <span class="var">baslangic</span>, <span class="kw">int</span> <span class="var">hedef</span>, <span class="kw">int</span> <span class="var">rota</span>[], <span class="kw">int</span> &amp;<span class="var">rotaUzunluk</span>) {
+  <span class="kw">bool</span> <span class="var">ziyaret</span>[<span class="num">5</span>] = { <span class="kw">false</span> };
+  <span class="kw">int</span>  <span class="var">onceki</span>[<span class="num">5</span>];
+  <span class="fn">memset</span>(<span class="var">onceki</span>, -<span class="num">1</span>, <span class="kw">sizeof</span>(<span class="var">onceki</span>));
+
+  <span class="kw">int</span> <span class="var">kuyruk</span>[<span class="num">20</span>];
+  <span class="kw">int</span> <span class="var">on</span> = <span class="num">0</span>, <span class="var">arka</span> = <span class="num">0</span>;
+  <span class="var">kuyruk</span>[<span class="var">arka</span>++] = <span class="var">baslangic</span>;
+  <span class="var">ziyaret</span>[<span class="var">baslangic</span>] = <span class="kw">true</span>;
+
+  <span class="kw">while</span> (<span class="var">on</span> &lt; <span class="var">arka</span>) {
+    <span class="kw">int</span> <span class="var">mevcut</span> = <span class="var">kuyruk</span>[<span class="var">on</span>++];
+
+    <span class="kw">if</span> (<span class="var">mevcut</span> == <span class="var">hedef</span>) {
+      <span class="cm">// Hedefe ulaşıldı — rotayı geri izle</span>
+      <span class="var">rotaUzunluk</span> = <span class="num">0</span>;
+      <span class="kw">int</span> <span class="var">tmp</span> = <span class="var">hedef</span>;
+      <span class="kw">while</span> (<span class="var">tmp</span> != -<span class="num">1</span>) {
+        <span class="var">rota</span>[<span class="var">rotaUzunluk</span>++] = <span class="var">tmp</span>;
+        <span class="var">tmp</span> = <span class="var">onceki</span>[<span class="var">tmp</span>];
+      }
+      <span class="cm">// Diziyi tersine çevir (E→A → A→E)</span>
+      <span class="kw">for</span> (<span class="kw">int</span> <span class="var">i</span> = <span class="num">0</span>; <span class="var">i</span> &lt; <span class="var">rotaUzunluk</span>/<span class="num">2</span>; <span class="var">i</span>++) {
+        <span class="kw">int</span> <span class="var">t</span> = <span class="var">rota</span>[<span class="var">i</span>];
+        <span class="var">rota</span>[<span class="var">i</span>] = <span class="var">rota</span>[<span class="var">rotaUzunluk</span>-<span class="num">1</span>-<span class="var">i</span>];
+        <span class="var">rota</span>[<span class="var">rotaUzunluk</span>-<span class="num">1</span>-<span class="var">i</span>] = <span class="var">t</span>;
+      }
+      <span class="kw">return true</span>;
+    }
+
+    <span class="cm">// Komşuları kuyruğa ekle</span>
+    <span class="kw">for</span> (<span class="kw">int</span> <span class="var">k</span> = <span class="num">0</span>; <span class="var">k</span> &lt; <span class="num">5</span>; <span class="var">k</span>++) {
+      <span class="kw">if</span> (<span class="var">graf</span>[<span class="var">mevcut</span>][<span class="var">k</span>]           <span class="cm">// bağlantı var mı?</span>
+          &amp;&amp; !<span class="var">kapali</span>[<span class="var">mevcut</span>][<span class="var">k</span>]     <span class="cm">// koridor açık mı?</span>
+          &amp;&amp; !<span class="var">ziyaret</span>[<span class="var">k</span>]) {          <span class="cm">// daha önce ziyaret edilmedi mi?</span>
+        <span class="var">ziyaret</span>[<span class="var">k</span>] = <span class="kw">true</span>;
+        <span class="var">onceki</span>[<span class="var">k</span>] = <span class="var">mevcut</span>;
+        <span class="var">kuyruk</span>[<span class="var">arka</span>++] = <span class="var">k</span>;
+      }
+    }
+  }
+  <span class="kw">return false</span>;  <span class="cm">// Yol bulunamadı</span>
+}
+
+<span class="cm">// Düğümden çıkış yönünü belirle</span>
+<span class="kw">int</span> <span class="fn">cikisYonuBul</span>(<span class="kw">int</span> <span class="var">benimID</span>) {
+  <span class="kw">int</span> <span class="var">rota</span>[<span class="num">10</span>];
+  <span class="kw">int</span> <span class="var">uzunluk</span>;
+  <span class="kw">if</span> (<span class="fn">bfs</span>(<span class="var">benimID</span>, <span class="num">4</span>, <span class="var">rota</span>, <span class="var">uzunluk</span>) &amp;&amp; <span class="var">uzunluk</span> &gt; <span class="num">1</span>) {
+    <span class="kw">return</span> <span class="var">rota</span>[<span class="num">1</span>];  <span class="cm">// Bir sonraki düğüm = gidilecek yön</span>
+  }
+  <span class="kw">return</span> -<span class="num">1</span>;  <span class="cm">// Yol yok</span>
+}</pre>
+  </div>
+
+  <div class="info-box tip" style="margin-top:16px">
+    <span class="info-icon">💡</span>
+    <div>
+      <strong>cikisYonuBul() nasıl çalışır?</strong>
+      BFS tüm rotayı döndürür (örn: A→C→E). Ama dot matrix ekranda sadece "bir sonraki adım" gösterilecek. <code style="color:var(--accent)">rota[1]</code> her zaman bir sonraki düğümü verir. Bu bilgiyi dot matrix'te yön okuna dönüştürürsün.
+    </div>
+  </div>
+</section>
+
+<!-- ── 7. ESP-NOW ── -->
+<section class="section" id="espnow">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <div>
+      <h2>ESP-NOW <span>Mesh Ağı</span></h2>
+      <p class="subtitle">İnternetsiz kablosuz haberleşme — afet anında bile çalışır</p>
+    </div>
+  </div>
+
+  <p style="color:var(--text-dim);font-size:14.5px;margin-bottom:20px;max-width:700px">
+    ESP-NOW, ESP32'lerin Wi-Fi router'a ihtiyaç duymadan birbirleriyle doğrudan konuşmasını sağlayan bir protokoldür. Bluetooth'a benzer ama çok daha hızlı ve uzun menzilli.
+  </p>
+
+  <div class="card-grid" style="margin-bottom:28px">
+    <div class="card"><div class="card-icon">⚡</div><h3>Hız</h3><p>Mesaj iletimi genellikle <strong style="color:var(--accent)">1–5 ms</strong> içinde gerçekleşir. 3 saniye içinde tüm ağ güncellenmesi hedefi kolayca karşılanır.</p></div>
+    <div class="card"><div class="card-icon">📶</div><h3>Menzil</h3><p>Açık alanda <strong style="color:var(--accent)">~200 m</strong>, bina içinde <strong style="color:var(--accent)">~30–50 m</strong>. Maket testleri için fazlasıyla yeterli.</p></div>
+    <div class="card"><div class="card-icon">🔑</div><h3>MAC Adresi</h3><p>Her ESP32'nin benzersiz bir MAC adresi vardır. Mesaj gönderilecek ESP32'nin MAC adresini önceden kaydetmen gerekir.</p></div>
+  </div>
+
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-left"><div class="step-num">1</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <h3>MAC Adreslerini Öğren</h3>
+        <p>Her ESP32'ye sırayla bu kodu yükle ve Serial Monitor'da MAC adresini not et. Her karta etiket yap (D1, D2, D3...).</p>
+        <div class="code-wrap" style="margin-top:12px">
+          <div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-title">mac_adres.ino</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div>
+          <pre><span class="kw">#include</span> <span class="str">&lt;WiFi.h&gt;</span>
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="fn">Serial</span>.<span class="fn">begin</span>(<span class="num">115200</span>);
+  <span class="fn">Serial</span>.<span class="fn">print</span>(<span class="str">"MAC: "</span>);
+  <span class="fn">Serial</span>.<span class="fn">println</span>(<span class="fn">WiFi</span>.<span class="fn">macAddress</span>());
+}
+<span class="kw">void</span> <span class="fn">loop</span>() {}</pre>
+        </div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-left"><div class="step-num">2</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <h3>Mesaj Yapısını Tanımla</h3>
+        <p>Tüm ESP32'ler aynı struct yapısını kullanmalı. Bir düğümde buton basıldığında bu yapı diğerlerine gönderilir.</p>
+        <div class="code-wrap" style="margin-top:12px">
+          <div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-title">mesaj_yapisi.h</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div>
+          <pre><span class="cm">// Tüm düğümlerde aynı struct tanımlanmalı!</span>
+<span class="kw">struct</span> <span class="tp">Mesaj</span> {
+  <span class="kw">int</span> <span class="var">gonderenID</span>;   <span class="cm">// Hangi düğüm gönderiyor? (0=A, 1=B...)</span>
+  <span class="kw">int</span> <span class="var">dugum1</span>;       <span class="cm">// Kapanan koridorun başlangıç düğümü</span>
+  <span class="kw">int</span> <span class="var">dugum2</span>;       <span class="cm">// Kapanan koridorun bitiş düğümü</span>
+  <span class="kw">bool</span> <span class="var">kapaliMi</span>;   <span class="cm">// true = kapalı, false = tekrar açıldı</span>
+};</pre>
+        </div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-left"><div class="step-num">3</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <h3>Gönderici ESP32 Kodu</h3>
+        <div class="code-wrap" style="margin-top:12px">
+          <div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-title">espnow_gonderici.ino</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div>
+          <pre><span class="kw">#include</span> <span class="str">&lt;esp_now.h&gt;</span>
+<span class="kw">#include</span> <span class="str">&lt;WiFi.h&gt;</span>
+
+<span class="cm">// Diğer tüm düğümlerin MAC adresleri</span>
+<span class="cm">// Kendi ölçümlerinle değiştir!</span>
+<span class="kw">uint8_t</span> <span class="var">macler</span>[<span class="num">4</span>][<span class="num">6</span>] = {
+  {<span class="num">0xAA</span>, <span class="num">0xBB</span>, <span class="num">0xCC</span>, <span class="num">0x11</span>, <span class="num">0x22</span>, <span class="num">0x33</span>},  <span class="cm">// Düğüm B</span>
+  {<span class="num">0xAA</span>, <span class="num">0xBB</span>, <span class="num">0xCC</span>, <span class="num">0x44</span>, <span class="num">0x55</span>, <span class="num">0x66</span>},  <span class="cm">// Düğüm C</span>
+  {<span class="num">0xAA</span>, <span class="num">0xBB</span>, <span class="num">0xCC</span>, <span class="num">0x77</span>, <span class="num">0x88</span>, <span class="num">0x99</span>},  <span class="cm">// Düğüm D</span>
+  {<span class="num">0xAA</span>, <span class="num">0xBB</span>, <span class="num">0xCC</span>, <span class="num">0xAA</span>, <span class="num">0xBB</span>, <span class="num">0xCC</span>},  <span class="cm">// Düğüm E</span>
+};
+
+<span class="kw">void</span> <span class="fn">gonderimSonucu</span>(<span class="kw">const uint8_t</span> *<span class="var">mac</span>, <span class="tp">esp_now_send_status_t</span> <span class="var">durum</span>) {
+  <span class="fn">Serial</span>.<span class="fn">println</span>(<span class="var">durum</span> == ESP_NOW_SEND_SUCCESS ? <span class="str">"✓ Gönderildi"</span> : <span class="str">"✗ Gönderilemedi"</span>);
+}
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="fn">Serial</span>.<span class="fn">begin</span>(<span class="num">115200</span>);
+  <span class="fn">WiFi</span>.<span class="fn">mode</span>(WIFI_STA);
+  <span class="fn">esp_now_init</span>();
+  <span class="fn">esp_now_register_send_cb</span>(<span class="fn">gonderimSonucu</span>);
+
+  <span class="cm">// Tüm alıcıları "peer" olarak ekle</span>
+  <span class="kw">for</span> (<span class="kw">int</span> <span class="var">i</span> = <span class="num">0</span>; <span class="var">i</span> &lt; <span class="num">4</span>; <span class="var">i</span>++) {
+    <span class="tp">esp_now_peer_info_t</span> <span class="var">peer</span> = {};
+    <span class="fn">memcpy</span>(<span class="var">peer</span>.peer_addr, <span class="var">macler</span>[<span class="var">i</span>], <span class="num">6</span>);
+    <span class="var">peer</span>.channel = <span class="num">0</span>;
+    <span class="var">peer</span>.encrypt = <span class="kw">false</span>;
+    <span class="fn">esp_now_add_peer</span>(&amp;<span class="var">peer</span>);
+  }
+}
+
+<span class="kw">void</span> <span class="fn">mesajYayinla</span>(<span class="kw">int</span> <span class="var">d1</span>, <span class="kw">int</span> <span class="var">d2</span>, <span class="kw">bool</span> <span class="var">kapali</span>) {
+  <span class="tp">Mesaj</span> <span class="var">m</span>;
+  <span class="var">m</span>.gonderenID = <span class="num">0</span>;  <span class="cm">// Bu ESP32 Düğüm A ise 0</span>
+  <span class="var">m</span>.dugum1 = <span class="var">d1</span>;
+  <span class="var">m</span>.dugum2 = <span class="var">d2</span>;
+  <span class="var">m</span>.kapaliMi = <span class="var">kapali</span>;
+
+  <span class="cm">// Tüm düğümlere gönder</span>
+  <span class="kw">for</span> (<span class="kw">int</span> <span class="var">i</span> = <span class="num">0</span>; <span class="var">i</span> &lt; <span class="num">4</span>; <span class="var">i</span>++) {
+    <span class="fn">esp_now_send</span>(<span class="var">macler</span>[<span class="var">i</span>], (<span class="kw">uint8_t</span> *)&amp;<span class="var">m</span>, <span class="kw">sizeof</span>(<span class="var">m</span>));
+  }
+}</pre>
+        </div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-left"><div class="step-num">4</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <h3>Alıcı ESP32 Kodu</h3>
+        <div class="code-wrap" style="margin-top:12px">
+          <div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-title">espnow_alici.ino</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div>
+          <pre><span class="kw">void</span> <span class="fn">mesajAlindi</span>(<span class="kw">const uint8_t</span> *<span class="var">mac</span>, <span class="kw">const uint8_t</span> *<span class="var">veri</span>, <span class="kw">int</span> <span class="var">uzunluk</span>) {
+  <span class="tp">Mesaj</span> <span class="var">m</span>;
+  <span class="fn">memcpy</span>(&amp;<span class="var">m</span>, <span class="var">veri</span>, <span class="kw">sizeof</span>(<span class="var">m</span>));
+
+  <span class="cm">// Graf matrisini güncelle (her iki yönde)</span>
+  <span class="var">kapali</span>[<span class="var">m</span>.dugum1][<span class="var">m</span>.dugum2] = <span class="var">m</span>.kapaliMi;
+  <span class="var">kapali</span>[<span class="var">m</span>.dugum2][<span class="var">m</span>.dugum1] = <span class="var">m</span>.kapaliMi;
+
+  <span class="cm">// BFS'i yeniden hesapla ve ekranı güncelle</span>
+  <span class="fn">rotayiGuncelle</span>();
+}
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="fn">WiFi</span>.<span class="fn">mode</span>(WIFI_STA);
+  <span class="fn">esp_now_init</span>();
+  <span class="fn">esp_now_register_recv_cb</span>(<span class="fn">mesajAlindi</span>);  <span class="cm">// Mesaj alınınca çağrılır</span>
+  <span class="cm">// ... diğer kurulum kodları</span>
+}
+
+<span class="kw">void</span> <span class="fn">rotayiGuncelle</span>() {
+  <span class="kw">int</span> <span class="var">benimID</span> = <span class="num">1</span>;  <span class="cm">// Bu ESP32 hangi düğüm?</span>
+  <span class="kw">int</span> <span class="var">hedefDugum</span> = <span class="fn">cikisYonuBul</span>(<span class="var">benimID</span>);
+
+  <span class="kw">if</span> (<span class="var">hedefDugum</span> == -<span class="num">1</span>) {
+    <span class="fn">yonGoster</span>(<span class="var">UYARI_X</span>);  <span class="cm">// Yol yok — X işareti göster</span>
+  } <span class="kw">else</span> {
+    <span class="cm">// Hedef düğüme göre yön okunu göster</span>
+    <span class="cm">// (konuma göre OK_SAG, OK_SOL, OK_YUKARI vb.)</span>
+    <span class="fn">yonGosterDuguma</span>(<span class="var">hedefDugum</span>);
+  }
+}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box warn" style="margin-top:8px">
+    <span class="info-icon">⚠️</span>
+    <div>
+      <strong>Önemli: Callback İçinde Serial.print Kullanma!</strong>
+      <code style="color:var(--accent)">mesajAlindi()</code> fonksiyonu içinde <code style="color:var(--accent)">Serial.print()</code> kullanırsan gecikme yaşarsın. Debug için kullanabilirsin ama final kodda kaldır.
+    </div>
+  </div>
+</section>
+
+<!-- ── 8. TAM SİSTEM ── -->
+<section class="section" id="tam-sistem">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <div>
+      <h2>Tam <span>Entegrasyon</span></h2>
+      <p class="subtitle">Tüm parçaları bir araya getiren ana program akışı</p>
+    </div>
+  </div>
+
+  <p style="color:var(--text-dim);font-size:14.5px;margin-bottom:24px">
+    Her ESP32'ye yüklenecek ana program şu adımları izler:
+  </p>
+
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-left"><div class="step-num">1</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <h3>setup() — Başlangıç</h3>
+        <p>MT3608 (5V) → ESP32 Vin + MAX7219 VCC beslemesi hazır → Dot matrix başlat → Butonları tanımla → ESP-NOW başlat → Diğer düğümleri peer olarak ekle → İlk BFS hesapla → Ekranı göster</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-left"><div class="step-num">2</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <h3>loop() — Sürekli Döngü</h3>
+        <p>Butonları kontrol et → Değişiklik varsa ESP-NOW ile yayınla + yerel graf matrisini güncelle + BFS yeniden hesapla + ekranı güncelle</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-left"><div class="step-num">3</div><div class="step-line"></div></div>
+      <div class="step-content">
+        <h3>mesajAlindi() callback — Dışarıdan gelen mesaj</h3>
+        <p>Gelen struct'ı parse et → Graf matrisini güncelle → BFS yeniden hesapla → Ekranı güncelle</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-wrap" style="margin-top:20px">
+    <div class="code-header"><div class="code-dots"><div class="code-dot dot-r"></div><div class="code-dot dot-y"></div><div class="code-dot dot-g"></div></div><span class="code-title">main_dugum.ino — Tam entegrasyon şablonu</span><button class="copy-btn" onclick="copyCode(this)">Kopyala</button></div>
+    <pre><span class="cm">// ===================================================
+// AcilRota — Düğüm Ana Programı
+// Her ESP32'ye bu kodu yükle, sadece BENIM_ID'yi değiştir
+// ===================================================</span>
+<span class="kw">#include</span> <span class="str">&lt;esp_now.h&gt;</span>
+<span class="kw">#include</span> <span class="str">&lt;WiFi.h&gt;</span>
+<span class="kw">#include</span> <span class="str">&lt;MD_MAX72xx.h&gt;</span>
+<span class="kw">#include</span> <span class="str">&lt;SPI.h&gt;</span>
+
+<span class="kw">#define</span> <span class="var">BENIM_ID</span>  <span class="num">0</span>   <span class="cm">// 0=A, 1=B, 2=C, 3=D, 4=E</span>
+<span class="kw">#define</span> <span class="var">HEDEF_ID</span>  <span class="num">4</span>   <span class="cm">// E = çıkış düğümü</span>
+<span class="kw">#define</span> <span class="var">N</span>         <span class="num">5</span>   <span class="cm">// Toplam düğüm sayısı</span>
+
+<span class="cm">// Pin tanımları</span>
+<span class="kw">#define</span> <span class="var">DATA_PIN</span> <span class="num">23</span>
+<span class="kw">#define</span> <span class="var">CLK_PIN</span>  <span class="num">18</span>
+<span class="kw">#define</span> <span class="var">CS_PIN</span>   <span class="num">5</span>
+
+<span class="cm">// Düğüm A için buton pinleri (her düğümde değişir!)</span>
+<span class="cm">// A düğümü: B ve C koridorlarına bağlı → 2 buton</span>
+<span class="kw">struct</span> <span class="tp">ButonKoridor</span> { <span class="kw">int</span> <span class="var">pin</span>; <span class="kw">int</span> <span class="var">d1</span>; <span class="kw">int</span> <span class="var">d2</span>; };
+<span class="tp">ButonKoridor</span> <span class="var">butonlar</span>[] = {
+  { <span class="num">12</span>, <span class="num">0</span>, <span class="num">1</span> },  <span class="cm">// GPIO12 → A-B koridoru</span>
+  { <span class="num">14</span>, <span class="num">0</span>, <span class="num">2</span> },  <span class="cm">// GPIO14 → A-C koridoru</span>
+};
+<span class="kw">const int</span> <span class="var">BUTON_SAYISI</span> = <span class="num">2</span>;
+
+<span class="cm">// Graf ve kapalı dizileri (Bölüm 06'dan)</span>
+<span class="kw">int</span>  <span class="var">graf</span>[<span class="var">N</span>][<span class="var">N</span>] = { ... };
+<span class="kw">bool</span> <span class="var">kapali</span>[<span class="var">N</span>][<span class="var">N</span>] = { <span class="kw">false</span> };
+
+MD_MAX72XX <span class="var">mx</span>(MD_MAX72XX::FC16_HW, <span class="var">DATA_PIN</span>, <span class="var">CLK_PIN</span>, <span class="var">CS_PIN</span>, <span class="num">1</span>);
+
+<span class="kw">void</span> <span class="fn">setup</span>() {
+  <span class="var">mx</span>.<span class="fn">begin</span>();
+  <span class="var">mx</span>.<span class="fn">control</span>(MD_MAX72XX::INTENSITY, <span class="num">5</span>);
+  <span class="kw">for</span> (<span class="kw">int</span> <span class="var">i</span>=<span class="num">0</span>; <span class="var">i</span>&lt;<span class="var">BUTON_SAYISI</span>; <span class="var">i</span>++) <span class="fn">pinMode</span>(<span class="var">butonlar</span>[<span class="var">i</span>].pin, INPUT_PULLUP);
+  <span class="fn">WiFi</span>.<span class="fn">mode</span>(WIFI_STA);
+  <span class="fn">esp_now_init</span>();
+  <span class="fn">esp_now_register_recv_cb</span>(<span class="fn">mesajAlindi</span>);
+  <span class="fn">peerleriEkle</span>();  <span class="cm">// Diğer ESP32'leri kaydet</span>
+  <span class="fn">rotayiGuncelle</span>();
+}
+
+<span class="kw">void</span> <span class="fn">loop</span>() {
+  <span class="kw">for</span> (<span class="kw">int</span> <span class="var">i</span>=<span class="num">0</span>; <span class="var">i</span>&lt;<span class="var">BUTON_SAYISI</span>; <span class="var">i</span>++) {
+    <span class="kw">if</span> (<span class="fn">digitalRead</span>(<span class="var">butonlar</span>[<span class="var">i</span>].pin) == LOW) {
+      <span class="fn">delay</span>(<span class="num">50</span>);
+      <span class="kw">if</span> (<span class="fn">digitalRead</span>(<span class="var">butonlar</span>[<span class="var">i</span>].pin) == LOW) {
+        <span class="kw">bool</span> <span class="var">yeniDurum</span> = !<span class="var">kapali</span>[<span class="var">butonlar</span>[<span class="var">i</span>].d1][<span class="var">butonlar</span>[<span class="var">i</span>].d2];
+        <span class="var">kapali</span>[<span class="var">butonlar</span>[<span class="var">i</span>].d1][<span class="var">butonlar</span>[<span class="var">i</span>].d2] = <span class="var">yeniDurum</span>;
+        <span class="var">kapali</span>[<span class="var">butonlar</span>[<span class="var">i</span>].d2][<span class="var">butonlar</span>[<span class="var">i</span>].d1] = <span class="var">yeniDurum</span>;
+        <span class="fn">mesajYayinla</span>(<span class="var">butonlar</span>[<span class="var">i</span>].d1, <span class="var">butonlar</span>[<span class="var">i</span>].d2, <span class="var">yeniDurum</span>);
+        <span class="fn">rotayiGuncelle</span>();
+        <span class="kw">while</span>(<span class="fn">digitalRead</span>(<span class="var">butonlar</span>[<span class="var">i</span>].pin) == LOW);
+      }
+    }
+  }
+}</pre>
+  </div>
+</section>
+
+<!-- ── 9. TEST ── -->
+<section class="section" id="test">
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <div>
+      <h2>Test <span>Senaryoları</span></h2>
+      <p class="subtitle">Prototipini bu üç senaryoyla doğrula</p>
+    </div>
+  </div>
+
+  <div class="card-grid" style="margin-bottom:28px">
+    <div class="card" style="border-color:rgba(74,222,128,0.4)">
+      <div class="card-icon">✅</div>
+      <h3>Senaryo 1 — Normal</h3>
+      <p style="font-family:'Space Mono',monospace;font-size:12px;color:var(--accent);margin-bottom:8px">A → B → D → E</p>
+      <p>Hiçbir koridor kapalı değil. Sistem en kısa rotayı göstermeli. Her düğümdeki ekran bir sonraki düğümü işaret etmeli.</p>
+    </div>
+    <div class="card" style="border-color:rgba(250,204,21,0.4)">
+      <div class="card-icon">🔀</div>
+      <h3>Senaryo 2 — Rota Değişimi</h3>
+      <p style="font-family:'Space Mono',monospace;font-size:12px;color:var(--accent4);margin-bottom:8px">A → C → E</p>
+      <p>B düğümünde B–D koridoru butonuna bas. Sistem 3 saniye içinde tüm ekranları güncellemeli ve alternatif rota göstermeli.</p>
+    </div>
+    <div class="card" style="border-color:rgba(239,68,68,0.4)">
+      <div class="card-icon">⛔</div>
+      <h3>Senaryo 3 — Yol Yok</h3>
+      <p style="font-family:'Space Mono',monospace;font-size:12px;color:var(--danger);margin-bottom:8px">A'dan çıkış yok</p>
+      <p>A–B VE A–C koridorlarını kapat. Tüm ekranlar "X" (uyarı) deseni göstermeli — yol yok anlamında.</p>
+    </div>
+  </div>
+
+  <div class="checklist">
+    <h3>✓ Son Kontrol Listesi</h3>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span>5 düğümün tamamı breadboard'da kuruldu ve çalışıyor</span></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span>Her düğümdeki butonlar doğru koridora atandı</span></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span>Senaryo 1 (normal) geçti</span></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span>Senaryo 2 (B–D kapalı, rota değişimi) 3 sn içinde geçti</span></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span>Senaryo 3 (yol yok, X gösterildi) geçti</span></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span>Li-ion pil + MT3608 testi: USB çıkarıldığında sistem çalışıyor, MT3608 çıkışı 5V'ta sabit</span></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span>Test videosu çekildi</span></div>
+    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span>Sunum slaytları hazır</span></div>
+  </div>
+</section>
+
+<!-- ── 10. SORUN GİDERME ── -->
+<section class="section" id="sorun">
+  <div class="section-header">
+    <span class="section-num">10</span>
+    <div>
+      <h2>Sorun <span>Giderme</span></h2>
+      <p class="subtitle">Takıldığında buraya bak</p>
+    </div>
+  </div>
+
+  <div class="trouble-grid">
+    <div class="trouble-item" onclick="toggleTrouble(this)">
+      <div class="trouble-q">ESP32 bilgisayarda görünmüyor / Port seçilemiyor <span class="expand-icon">▾</span></div>
+      <div class="trouble-a">CP2102 veya CH340 USB-Seri sürücüsünü yükle. ESP32 kartın üzerindeki küçük chip'in adına bak. Google'da "<strong>[chip adı] driver download</strong>" şeklinde ara. Sürücüyü yükledikten sonra Arduino IDE'yi kapat-aç ve <strong>Tools → Port</strong>'u kontrol et. Farklı bir USB kablosu da dene (bazı kablolar sadece şarj yapar, data iletmez).</div>
+    </div>
+    <div class="trouble-item" onclick="toggleTrouble(this)">
+      <div class="trouble-q">Upload başarısız — "Connecting..." takılı kalıyor <span class="expand-icon">▾</span></div>
+      <div class="trouble-a">Upload başlarken Serial Monitor'da "Connecting..." yazısı görünür görünmez ESP32 üzerindeki <strong>BOOT</strong> butonuna basılı tut. Upload işlemi başlayınca (ilerleme çubuğu çıkınca) bırak. Bazı kartlarda BOOT ve EN butonlarına birlikte basmak gerekir.</div>
+    </div>
+    <div class="trouble-item" onclick="toggleTrouble(this)">
+      <div class="trouble-q">Dot Matrix ekran yanmıyor / karanlık kalıyor <span class="expand-icon">▾</span></div>
+      <div class="trouble-a">1) Bağlantıları kontrol et: VCC→5V (Vin), GND→GND, DIN→23, CLK→18, CS→5. 2) <code>mx.begin()</code> çağrıldığından emin ol. 3) <code>mx.control(MD_MAX72XX::INTENSITY, 8)</code> ile parlaklığı artır. 4) <code>mx.clear()</code>'dan sonra <code>mx.update()</code> veya <code>setRow()</code> çağırdığından emin ol. 5) MD_MAX72XX kütüphanesi kuruluyken donanım tipini <strong>FC16_HW</strong> seç.</div>
+    </div>
+    <div class="trouble-item" onclick="toggleTrouble(this)">
+      <div class="trouble-q">BFS yanlış rota gösteriyor <span class="expand-icon">▾</span></div>
+      <div class="trouble-a">Graf matrisini kağıda çiz ve elle takip et. Serial Monitor'a <code>kapali[i][j]</code> değerlerini yazdır — hangi kenarlar kapalı görünüyor? Unutma: koridor A–B kapatıldığında hem <code>kapali[0][1]</code> hem <code>kapali[1][0]</code> true olmalı (yönlü değil, yönsüz graf). Ayrıca BFS'in başlangıç ve hedef parametrelerini kontrol et.</div>
+    </div>
+    <div class="trouble-item" onclick="toggleTrouble(this)">
+      <div class="trouble-q">ESP-NOW mesajı gitmiyor <span class="expand-icon">▾</span></div>
+      <div class="trouble-a">1) MAC adreslerini doğrula: her ESP32'ye <code>WiFi.macAddress()</code> kodunu yükle ve Serial Monitor'a bak. 2) <code>esp_now_add_peer()</code> başarı dönüp dönmediğini kontrol et. 3) Alıcı ESP32 da <code>esp_now_init()</code> çağırmalı. 4) Her iki cihaz da <code>WiFi.mode(WIFI_STA)</code> modunda olmalı. 5) Gönderici callback'te başarı mesajı var mı bak: <code>ESP_NOW_SEND_SUCCESS</code></div>
+    </div>
+    <div class="trouble-item" onclick="toggleTrouble(this)">
+      <div class="trouble-q">Buton çok fazla tetikleniyor (titreşim sorunu) <span class="expand-icon">▾</span></div>
+      <div class="trouble-a">Debounce eksik. Buton okumasından sonra <code>delay(50)</code> ekle ve bırakıldığına emin ol: <code>while(digitalRead(pin) == LOW);</code> satırı butona basılı tutulduğunda sistemi kilitler. Bu satırı da ekle. Alternatif olarak <code>millis()</code> tabanlı non-blocking debounce kullanabilirsin.</div>
+    </div>
+    <div class="trouble-item" onclick="toggleTrouble(this)">
+      <div class="trouble-q">Pil hızla bitiyor <span class="expand-icon">▾</span></div>
+      <div class="trouble-a">ESP32 aktif modda ~240mA çeker. Dot matrix de enerji harcar. Önce: <code>loop()</code> içindeki <code>delay()</code> değerlerini artır (100ms yeterli). İleri: ESP-NOW mesajı bekliyorken <strong>light sleep</strong> moduna al. Dot matrix parlaklığını düşür: <code>mx.control(INTENSITY, 2)</code>.</div>
+    </div>
+  </div>
+
+  <div class="info-box tip" style="margin-top:28px">
+    <span class="info-icon">🏆</span>
+    <div>
+      <strong>Sunum İpucu</strong>
+      "Sistem çalıştı" demek yerine test videosunu göster! Her senaryonun video kaydını al. Özellikle buton basıldıktan sonra tüm ekranların &lt;3 saniyede güncellendiğini gösteren video çok ikna edici olur.
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:48px 24px;border-top:1px solid var(--border);margin-top:40px">
+    <div style="font-size:40px;margin-bottom:12px">🚀</div>
+    <h3 style="font-family:'Space Mono',monospace;font-size:20px;color:#fff;margin-bottom:8px">Başarılar, AcilRota Takımı!</h3>
+    <p style="color:var(--text-muted);font-size:14px">Sorularınız için önce Google'a sonra yapay zekaya son olarak bana başvurabilirsiniz.</p>
+    <div style="margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <span class="pill pill-blue">TEKNOFEST 2026</span>
+      <span class="pill pill-green">Başvuru ID: 5073713</span>
+      <span class="pill pill-orange">Takım ID: 956184</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+// ── NAV ACTIVE STATE ──
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinks.forEach(l => {
+    l.classList.remove('active');
+    if (l.getAttribute('href') === '#' + current) l.classList.add('active');
+  });
+  // Progress
+  const total = document.body.scrollHeight - window.innerHeight;
+  const pct = Math.round((window.scrollY / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = pct + '%';
+});
+
+// ── COPY BUTTON ──
+function copyCode(btn) {
+  const pre = btn.closest('.code-wrap').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(() => {
+    btn.textContent = '✓ Kopyalandı';
+    setTimeout(() => btn.textContent = 'Kopyala', 2000);
+  });
+}
+
+// ── TOGGLE TROUBLE ──
+function toggleTrouble(el) {
+  el.classList.toggle('open');
+}
+
+// ── TOGGLE CHECK ──
+function toggleCheck(el) {
+  el.classList.toggle('done');
+  if (el.classList.contains('done')) el.querySelector('.check-box').textContent = '✓';
+  else el.querySelector('.check-box').textContent = '✓';
+}
+
+// ── INTERACTIVE GRAPH (BFS SIMULATOR) ──
+const nodeLabels = ['A','B','C','D','E'];
+const nodeColors = ['#6366f1','#3b82f6','#10b981','#f59e0b','#ef4444'];
+const nodePos = [[80,150],[220,70],[220,230],[380,70],[380,230],[540,150]];
+// Actual 5 nodes: A=0,B=1,C=2,D=3,E=4
+const nPos = [[80,150],[240,80],[240,220],[420,80],[420,220],[580,150]];
+
+const grafBase = [
+  [0,1,1,0,0],
+  [1,0,1,1,0],
+  [1,1,0,1,1],
+  [0,1,1,0,1],
+  [0,0,1,1,0]
+];
+
+const edges = [];
+for (let i=0;i<5;i++) for (let j=i+1;j<5;j++) if (grafBase[i][j]) edges.push([i,j]);
+
+const edgeLabels = edges.map(([a,b]) => nodeLabels[a]+'-'+nodeLabels[b]);
+let closedEdges = new Set();
+
+// Render edge toggles
+const et = document.getElementById('edgeToggles');
+edges.forEach(([a,b],i) => {
+  const btn = document.createElement('button');
+  btn.className = 'edge-toggle';
+  btn.textContent = nodeLabels[a]+'–'+nodeLabels[b];
+  btn.onclick = () => {
+    if (closedEdges.has(i)) closedEdges.delete(i); else closedEdges.add(i);
+    btn.classList.toggle('closed');
+    updateMatrix();
+    runBFS();
+  };
+  et.appendChild(btn);
+});
+
+function updateMatrix() {
+  document.querySelectorAll('#matrixTable td').forEach(td => {
+    const r = +td.dataset.r, c = +td.dataset.c;
+    td.classList.remove('closed-cell');
+    if (grafBase[r][c]) {
+      const ei = edges.findIndex(([a,b]) => (a===r&&b===c)||(a===c&&b===r));
+      if (ei>=0 && closedEdges.has(ei)) {
+        td.classList.remove('one'); td.classList.add('closed-cell'); td.textContent = '✕';
+      } else {
+        td.classList.remove('closed-cell'); td.classList.add('one'); td.textContent = '1';
+      }
+    }
+  });
+}
+
+function drawGraph(path) {
+  const svg = document.getElementById('graphSvg');
+  svg.innerHTML = '';
+  const W=700,H=300;
+  const pos = [[80,150],[220,80],[220,220],[420,80],[420,220],[580,150]];
+  // Actual 5 nodes mapped to 6 positions index 0-4 + E at index 5
+  // Use different layout:
+  const np = [[70,150],[220,75],[220,225],[430,75],[430,225],[590,150]];
+
+  function pt(i){ return np[i]||np[0]; }
+
+  // Draw edges
+  edges.forEach(([a,b],i) => {
+    const [x1,y1]=pt(a),[x2,y2]=pt(b);
+    const isOnPath = path && path.length>1 && path.some((n,idx)=>idx<path.length-1&&((path[idx]===a&&path[idx+1]===b)||(path[idx]===b&&path[idx+1]===a)));
+    const isClosed = closedEdges.has(i);
+    const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',x1);line.setAttribute('y1',y1);
+    line.setAttribute('x2',x2);line.setAttribute('y2',y2);
+    line.setAttribute('stroke', isClosed ? '#ef444466' : isOnPath ? '#00d4ff' : '#1e2d45');
+    line.setAttribute('stroke-width', isOnPath ? '3' : '2');
+    if (isClosed) line.setAttribute('stroke-dasharray','6,4');
+    svg.appendChild(line);
+    // label
+    const tx = (x1+x2)/2, ty = (y1+y2)/2;
+    const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+    t.setAttribute('x',tx);t.setAttribute('y',ty-6);
+    t.setAttribute('fill',isClosed?'#ef4444':'#374151');
+    t.setAttribute('font-size','10');t.setAttribute('text-anchor','middle');
+    t.setAttribute('font-family','monospace');
+    t.textContent = nodeLabels[a]+'-'+nodeLabels[b]+(isClosed?' ✕':'');
+    svg.appendChild(t);
+  });
+
+  // Draw nodes
+  for (let i=0;i<5;i++) {
+    const [cx,cy]=pt(i);
+    const isPath = path && path.includes(i);
+    const circ = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    circ.setAttribute('cx',cx);circ.setAttribute('cy',cy);circ.setAttribute('r',26);
+    circ.setAttribute('fill','#0a0e1a');
+    circ.setAttribute('stroke', isPath ? nodeColors[i] : '#1e2d45');
+    circ.setAttribute('stroke-width', isPath ? '3':'2');
+    if (isPath) circ.setAttribute('filter','drop-shadow(0 0 8px '+nodeColors[i]+'88)');
+    svg.appendChild(circ);
+    const lbl = document.createElementNS('http://www.w3.org/2000/svg','text');
+    lbl.setAttribute('x',cx);lbl.setAttribute('y',cy+5);
+    lbl.setAttribute('fill',isPath?nodeColors[i]:'#475569');
+    lbl.setAttribute('font-size','16');lbl.setAttribute('font-weight','bold');
+    lbl.setAttribute('text-anchor','middle');lbl.setAttribute('font-family','monospace');
+    lbl.textContent = nodeLabels[i];
+    svg.appendChild(lbl);
+    const sub = document.createElementNS('http://www.w3.org/2000/svg','text');
+    sub.setAttribute('x',cx);sub.setAttribute('y',cy+42);
+    sub.setAttribute('fill',nodeColors[i]);sub.setAttribute('font-size','9');
+    sub.setAttribute('text-anchor','middle');sub.setAttribute('font-family','monospace');
+    sub.textContent = i===0?'BAŞLANGIÇ':i===4?'ÇIKIŞ':'';
+    svg.appendChild(sub);
+  }
+}
+
+function bfsJS(start,goal) {
+  const visited = Array(5).fill(false);
+  const prev = Array(5).fill(-1);
+  const queue = [start]; visited[start]=true;
+  while (queue.length) {
+    const cur = queue.shift();
+    if (cur===goal) {
+      const path=[]; let t=goal;
+      while(t!==-1){path.unshift(t);t=prev[t];}
+      return path;
+    }
+    for (let k=0;k<5;k++) {
+      if (!grafBase[cur][k]||visited[k]) continue;
+      const ei=edges.findIndex(([a,b])=>(a===cur&&b===k)||(a===k&&b===cur));
+      if (closedEdges.has(ei)) continue;
+      visited[k]=true; prev[k]=cur; queue.push(k);
+    }
+  }
+  return null;
+}
+
+function runBFS() {
+  const log = document.getElementById('bfsLog');
+  const closed = [...closedEdges].map(i=>edgeLabels[i]);
+  let msg = '';
+  if (closed.length) msg += `Kapalı: ${closed.join(', ')}\n`;
+  else msg += 'Tüm koridorlar açık.\n';
+  msg += 'BFS çalışıyor... ';
+  const path = bfsJS(0,4);
+  if (path) {
+    msg += '✓ Rota bulundu!\n';
+    msg += '→ ' + path.map(i=>nodeLabels[i]).join(' → ');
+    msg += `\n(${path.length-1} adım)`;
+  } else {
+    msg += '✗ Yol bulunamadı! Ekranlar X göstermeli.';
+  }
+  log.textContent = msg;
+  drawGraph(path);
+}
+
+function resetGraph() {
+  closedEdges.clear();
+  document.querySelectorAll('.edge-toggle').forEach(b=>b.classList.remove('closed'));
+  document.querySelectorAll('#matrixTable td').forEach(td=>{
+    const r=+td.dataset.r,c=+td.dataset.c;
+    td.classList.remove('closed-cell');
+    if (grafBase[r][c]){td.classList.add('one');td.textContent='1';}
+    else{td.classList.add('zero');td.textContent='0';}
+  });
+  document.getElementById('bfsLog').textContent = 'Sıfırlandı. BFS hazır.';
+  drawGraph(null);
+}
+
+// Initial draw
+drawGraph(null);
+
+// Phase accordion
+document.querySelectorAll('.phase-item').forEach(item=>{
+  item.querySelector('.phase-header').addEventListener('click',()=>item.classList.toggle('open'));
+});
+</script>
+</body>
+</html>
